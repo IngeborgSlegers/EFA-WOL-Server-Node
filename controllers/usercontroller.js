@@ -16,7 +16,7 @@ router.post('/signup', (req, res) => {
       let token = jwt.sign({ id: user.id }, 'jwt_secret', { expiresIn: 60 * 60 * 24 });
       res.status(200).json({
         user: user,
-        token: token,
+        sessionToken: token,
         message: 'User created'
       })
     },
@@ -45,7 +45,9 @@ router.post('/signin', (req, res) => {
     } else {
       res.status(403).send({ error: 'User not found'})
     }
-  })
+  }, 
+    err => res.status(501).send({error: 'Failed to process.'}) 
+  )
 })
 
 module.exports = router;

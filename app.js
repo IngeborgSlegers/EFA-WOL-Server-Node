@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const sequelize = require('./db');
@@ -12,4 +14,4 @@ app.use('/user', user);
 app.use(require('./middleware/validate-session'));
 app.use('/log', log);
 
-app.listen(3000, () => console.log("App is listening on 3000"))
+app.listen(process.env.PORT, () => console.log(`App is listening on ${process.env.PORT}`))
